@@ -7,6 +7,8 @@ from typing import Any, Literal
 
 from token_sentinel_adapter.types import PresetName
 
+__all__ = ["PRESETS", "Preset", "PresetName", "resolve_preset"]
+
 # Coding-agent retrieval tool name patterns for retrieval_thrash config.
 # The SDK rule matches substrings / globs against tool names.
 _CODING_RETRIEVAL_PATTERNS: tuple[str, ...] = (
@@ -88,7 +90,8 @@ PRESETS: dict[PresetName, Preset] = {
 
 def resolve_preset(name: str | PresetName) -> Preset:
     key = str(name).strip().lower()
-    if key not in PRESETS:
-        allowed = ", ".join(sorted(PRESETS))
-        raise ValueError(f"Unknown preset {name!r}; expected one of: {allowed}")
-    return PRESETS[key]  # type: ignore[index]
+    for pname, preset in PRESETS.items():
+        if pname == key:
+            return preset
+    allowed = ", ".join(sorted(PRESETS))
+    raise ValueError(f"Unknown preset {name!r}; expected one of: {allowed}")

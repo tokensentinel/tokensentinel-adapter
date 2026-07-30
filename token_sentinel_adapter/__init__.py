@@ -13,13 +13,14 @@ from __future__ import annotations
 from token_sentinel_adapter.decisions import decision_from_events, format_reason
 from token_sentinel_adapter.engine import EngineHandle, EngineResult
 from token_sentinel_adapter.normalize import build_call_record, stream_session_id
-from token_sentinel_adapter.presets import PRESETS, PresetName, resolve_preset
+from token_sentinel_adapter.presets import PRESETS, resolve_preset
 from token_sentinel_adapter.redact import redact_mapping, redact_text
 from token_sentinel_adapter.report import format_session_report
 from token_sentinel_adapter.types import (
     AdapterEvent,
     Decision,
     DecisionAction,
+    PresetName,
     RuntimeStatus,
     WasteHit,
 )

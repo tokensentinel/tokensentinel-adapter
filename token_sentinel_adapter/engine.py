@@ -65,8 +65,8 @@ class EngineHandle:
         # Cloud event sink still works when cloud_endpoint + api_key are set.
         self.sentinel = Sentinel(
             project=project,
-            mode=self.preset.mode,  # type: ignore[arg-type]
-            rules=self.preset.rules,  # type: ignore[arg-type]
+            mode=self.preset.mode,
+            rules=self.preset.rules,
             config=config,
             cloud_endpoint=cloud_endpoint,
             api_key=api_key,
