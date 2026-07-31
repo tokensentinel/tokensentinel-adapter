@@ -90,8 +90,11 @@ class SqliteSessionStore(SessionStore):
         self._init_db()
 
     def _connect(self) -> sqlite3.Connection:
+        # timeout + busy_timeout matter across OS processes (Claude parallel tools),
+        # not only threads within one process.
         conn = sqlite3.connect(str(self.path), timeout=30, check_same_thread=False)
         conn.execute("PRAGMA journal_mode=WAL")
+        conn.execute("PRAGMA busy_timeout=30000")
         return conn
 
     def _init_db(self) -> None:
@@ -120,6 +123,8 @@ class SqliteSessionStore(SessionStore):
         with self._lock:
             conn = self._connect()
             try:
+                # Cross-process writers: take a reserved lock for the write txn.
+                conn.execute("BEGIN IMMEDIATE")
                 conn.execute(
                     "INSERT INTO calls (stream_id, payload, created_at) VALUES (?, ?, ?)",
                     (call.session_id, payload, call.timestamp.isoformat()),
@@ -135,6 +140,9 @@ class SqliteSessionStore(SessionStore):
                     (call.session_id, call.session_id, self._max),
                 )
                 conn.commit()
+            except Exception:
+                conn.rollback()
+                raise
             finally:
                 conn.close()
 
