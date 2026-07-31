@@ -1,4 +1,4 @@
-"""EngineHandle — single entry for host bridges (architecture Layer 2)."""
+"""EngineHandle — single entry for host bridges."""
 
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ class EngineResult:
 class EngineHandle:
     """Owns one :class:`Sentinel` and evaluates :class:`AdapterEvent`s.
 
-    Per-agent isolation (D10): each ``(host_session_id, agent_id)`` maps to a
+    Per-agent isolation: each ``(host_session_id, agent_id)`` maps to a
     distinct ``CallRecord.session_id`` via :func:`stream_session_id`. Concurrent
     ``handle`` calls for different agents take different locks.
     """
@@ -90,7 +90,7 @@ class EngineHandle:
 
     def set_status(self, status: RuntimeStatus) -> None:
         self._status = status
-        # Strict deny only when healthy (architecture D3 / UX).
+        # Strict deny only when healthy.
         if status != RuntimeStatus.HEALTHY:
             self._allow_block = False
         elif self.preset.mode == "block":

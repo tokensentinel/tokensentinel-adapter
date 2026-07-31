@@ -26,9 +26,9 @@ DEFAULT_CODING_RETRIEVAL_HINTS: frozenset[str] = frozenset(
 
 
 def stream_session_id(host_session_id: str, agent_id: str | None = None) -> str:
-    """Composite session key for rule windows (architecture D10).
+    """Composite session key for rule windows.
 
-    Until CallRecord.agent_id lands in the SDK (D12), isolation is achieved
+    Isolation is achieved
     by giving each agent its own Tracer session string.
     """
     agent = (agent_id or "main").strip() or "main"

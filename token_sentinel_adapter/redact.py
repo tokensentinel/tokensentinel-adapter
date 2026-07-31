@@ -1,4 +1,4 @@
-"""Best-effort redaction for tool payloads (UX S8 / architecture §6.3).
+"""Best-effort redaction for tool payloads.
 
 Not a DLP product — regex/entropy heuristics only. Unit-tested for common
 secret shapes; false negatives remain possible.

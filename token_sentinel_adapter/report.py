@@ -1,4 +1,4 @@
-"""Human-readable session reports (UX Stage 7)."""
+"""Human-readable session reports."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Session record persistence for disk-fallback path (architecture Hybrid C)."""
+"""Session record persistence for disk-fallback path."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Host-agnostic types for the adapter kernel (architecture D9)."""
+"""Host-agnostic types for the adapter kernel."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import Any, Literal
 
 
 class RuntimeStatus(str, Enum):
-    """Visible health of the evaluation path (architecture D11 / UX S3)."""
+    """Visible health of the evaluation path (visible health)."""
 
     HEALTHY = "healthy"
     DEGRADED = "degraded"
@@ -44,7 +44,7 @@ class WasteHit:
 class AdapterEvent:
     """Normalized host event. Host bridges only construct this type.
 
-    Attributes follow architecture D9. Rule windows use
+    Attributes follow host contracts. Rule windows use
     ``(host_session_id, agent_id)`` via :func:`stream_session_id`.
     """
 

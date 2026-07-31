@@ -1,4 +1,4 @@
-"""Multi-agent isolation (architecture D10) — sibling agents must not pool."""
+"""Multi-agent isolation — sibling agents must not pool."""
 
 from __future__ import annotations
 
