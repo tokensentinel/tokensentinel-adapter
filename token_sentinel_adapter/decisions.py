@@ -14,8 +14,9 @@ from token_sentinel_adapter.types import (
 
 
 def leak_to_hit(event: LeakEvent) -> WasteHit:
-    host_session_id, agent_id = parse_stream_session_id(event.session_id)
-    # Prefer metadata stamped by normalize if present on tags later.
+    host_session_id, parsed_agent = parse_stream_session_id(event.session_id)
+    # Prefer typed LeakEvent.agent_id (D12) when set; else composite session_id.
+    agent_id = (getattr(event, "agent_id", None) or parsed_agent or "main")
     evidence_keys = tuple(sorted(event.evidence.keys())) if event.evidence else ()
     return WasteHit(
         type=event.type,

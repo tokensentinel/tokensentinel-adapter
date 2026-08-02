@@ -34,6 +34,7 @@ def _row_to_call(d: dict[str, Any]) -> CallRecord:
     d.setdefault("tool_calls", [])
     d.setdefault("raw_request", {})
     d.setdefault("raw_response_meta", {})
+    d.setdefault("agent_id", "")
     return CallRecord(**{k: d[k] for k in CallRecord.__dataclass_fields__ if k in d})
 
 

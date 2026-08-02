@@ -141,4 +141,5 @@ def build_call_record(event: AdapterEvent) -> CallRecord:
             "feature": event.host.replace("_", "-")[:64],
             "version": "adapter-0.1.0",
         },
+        agent_id=agent_id,
     )
